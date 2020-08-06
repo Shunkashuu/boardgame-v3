@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boardgame</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/img/Gen II - 08. Sport Ball.ico" />
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <video paused loop id="bgvid">
+        <source src="video/pokemon-video.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <img src="img/logo.png" class="logo" alt="Pokémon logo">
+        <div class="title">
+            <h1>Boardgame</h1>
+            <button id="vidpause">Stopper vidéo</button>
+        </div>
+        <audio controls preload="auto" class="audioplayer" loop>
+            <source src="audio/pokemon-theme.mp3" type="audio/mpeg">
+        </audio>
+    </header>
+
+    <section class="caracters">
+        <div class="row">
+            <div class="col">
+                <div id="player1">
+                    <img src="img/player1.png" alt="Evoli">
+                    <h4>Evoli</h4>
+                    <progress class="progressbar" max="100" value="100"></progress>
+                    <h4>PV : </h4>
+                    <h4>Arme actuelle : </h4>
+                    <img src="" class="arme" alt="">
+                </div>
+			</div>
+            <table id="plateau"></table>
+            <div class="col">
+                <div id="player2">
+                    <img src="img/player2.png" alt="Pikachu">
+                    <h4>Pikachu</h4>
+                    <progress class="progressbar" max="100" value="100"></progress>
+                    <h4>PV : </h4>
+                    <h4>Arme actuelle : </h4>
+                    <img src="" class="arme" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="caracters-1">
+        <div class="row">
+            <div class="col">
+                <div class="ct">
+                    <img src="img/electrik.png" alt="electrik">
+                    <h4>Cage Eclair</h4>
+                    <h4>20 de dégâts </h4>
+                    <h4>CT éléctrique</h4>
+                </div>
+            </div>
+            <div class="col">
+                <div class="ct">
+                    <img src="img/fighting.png" alt="fightingk">
+                    <h4>Double Pied</h4>
+                    <h4>30 de dégâts </h4>
+                    <h4>CT combat</h4>
+                </div>
+            </div>
+            <div class="col">
+                <div class="ct">
+                    <img src="img/plant.png" alt="plant">
+                    <h4>Noeud d'herbe</h4>
+                    <h4>40 de dégâts </h4>
+                    <h4>CT plante</h4>
+                 </div>
+            </div>
+            <div class="col">
+                <div class="ct">
+                    <img src="img/water.png" alt="water">
+                    <h4>Surf</h4>
+                    <h4>50 de dégâts </h4>
+                    <h4>CT eau</h4>
+                </div>
+            </div>
+		</div>
+    </section>
+
+	<footer>
+        <p>Made with ❤️ by <a href="https://mariongajic.fr/">Marion GAJIC</a></p>
+    </footer>
+
+<script src="js/map.js"></script>
+<script src="js/weapon.js"></script>
+<script src="js/player.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>
