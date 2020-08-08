@@ -1,4 +1,4 @@
-class Joueur {
+export default class Joueur {
     constructor(id, degats, x, y, src){
         this.id = id;
         this.degats = degats;
@@ -8,3 +8,10 @@ class Joueur {
         
     }
 }
+
+//export default Joueur
+const Toto = () => {  // fonction flechee
+    console.log("depuis ma super fonction");
+}
+
+export {Toto}  //export nomme

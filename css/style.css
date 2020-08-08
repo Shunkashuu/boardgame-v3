@@ -130,14 +130,12 @@ a:hover {
 .progressbar {
     background-color: black;
     border-radius: 13px;
-    /* (height of inner div) / 2 + padding */
     padding: 3px;
 }
   
 .progressbar>div {
     background-color: orange;
     width: 40%;
-    /* Adjust with JavaScript */
     height: 20px;
     border-radius: 10px;
 }
@@ -155,11 +153,6 @@ table {
     border-right: 2px solid #979797;
     border-spacing: 0;
     margin: 5%;
-}
-
-.greyed {
-    background-image : url("img/roche.png") !important;
-    background-color: lightblue;
 }
 
 .ct img {
