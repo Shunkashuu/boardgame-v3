@@ -54,8 +54,7 @@ export default class Map {
       let index = random(0, $tdElts.length);
       let randomTdElt = $tdElts[index];
 
-      // fais les vérifications pour pas que 2 murs soient côte à côte
-      // tu peux l'enlever mais ce sera utile pour vérifier qu'un mur ne tombe pas sur un joueur ou une arme par exemple
+      // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
       while (this.getCellInfos(randomTdElt.id) !== 0) {
         index = random(0, $tdElts.length);
         randomTdElt = $tdElts[index];
