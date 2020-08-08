@@ -205,6 +205,54 @@ var Map = /*#__PURE__*/function () {
         }
       }
     }
+    /**
+     * @Description Génère les murs
+     * @author snouzy
+     * @date 2020-08-08
+     */
+
+  }, {
+    key: "genererMurs",
+    value: function genererMurs() {
+      var $tdElts = $('td'); // le nb de mur va être dans cet interval
+
+      var min = 10;
+      var max = 15; // generation d'un nb aléatoire (voir la fonction dans initGame.js)
+
+      var randomNumber = random(min, max);
+
+      for (var i = 0; i < randomNumber; i++) {
+        // sélectionne un td au hasard
+        var index = random(0, $tdElts.length);
+        var randomTdElt = $tdElts[index]; // fais les vérifications pour pas que 2 murs soient côte à côte
+        // tu peux l'enlever mais ce sera utile pour vérifier qu'un mur ne tombe pas sur un joueur ou une arme par exemple
+
+        while (this.getCellInfos(randomTdElt.id) !== 0) {
+          index = random(0, $tdElts.length);
+          randomTdElt = $tdElts[index];
+        } // on colorie les murs en gris
+        // tu peux renommer la classe en "mur" si ça t'aide
+
+
+        $(randomTdElt).addClass('greyed');
+      }
+    }
+    /**
+     * @Description Renvoi ce qu'il y a sur la cellule visée
+     * @author snouzy
+     * @date 2020-08-08
+     * @param {any} pos  une position sous la forme {3-1}
+     * @returns {int}    un nombre correspondant à la classe associée ou 0 si rien ne correspond
+     */
+
+  }, {
+    key: "getCellInfos",
+    value: function getCellInfos(pos) {
+      // la pos ressemble à 3-1 par exemple
+      // on la sélectionne avec jquery
+      var posTd = $("#".concat(pos));
+      if ($(posTd).hasClass('greyed')) return 1;else return 0;
+    }
   }]);
 
   return Map;
@@ -237,6 +285,20 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+/**
+ * @Description Renvoi un nombre aléatoire entre {min} et {max}
+ * window permet de dire que cette fonction est appellable de manière globale dans tout le projet
+ * tu vas surement en avoir besoin pour génerer les armes et les joueurs aussi
+ * @author snouzy
+ * @date 2020-08-08
+ * @param {int} min  le nombre minimum souhaité
+ * @param {int} max  le nombre maximum souhaité
+ * @returns {int}    un nombre entre min et max
+ */
+window.random = function (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
 var Init = /*#__PURE__*/function () {
   function Init() {
     _classCallCheck(this, Init);
@@ -248,6 +310,7 @@ var Init = /*#__PURE__*/function () {
       // tous les objets
       var Grille = new _map.default(10, 10);
       Grille.creerGrille();
+      Grille.genererMurs(); //generation des murs
     }
   }]);
 
@@ -266,7 +329,7 @@ $(document).ready(function () {
   var InitGame = new _initGame.default(10, 10);
   InitGame.creerGrille(); // initgame.createplayer
 });
-},{"./initGame.js":"js/initGame.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./initGame.js":"js/initGame.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -294,7 +357,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49238" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58799" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -470,5 +533,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/app.js"], null)
+},{}]},{},["node_modules/parcel/src/builtins/hmr-runtime.js","js/app.js"], null)
 //# sourceMappingURL=/app.c3f9f951.js.map

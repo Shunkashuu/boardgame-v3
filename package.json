@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Shunkashuu/boardgame-v3/issues"
   },
-  "homepage": "https://github.com/Shunkashuu/boardgame-v3#readme"
+  "homepage": "https://github.com/Shunkashuu/boardgame-v3#readme",
+  "dependencies": {
+    "parcel": "^1.12.4"
+  }
 }
