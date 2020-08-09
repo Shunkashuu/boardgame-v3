@@ -56,6 +56,7 @@ export default class Map {
 
       // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
       while (this.getCellInfos(randomTdElt.id) !== 0) {
+        //3-1
         index = random(0, $tdElts.length);
         randomTdElt = $tdElts[index];
       }
@@ -79,6 +80,12 @@ export default class Map {
     let posTd = $(`#${pos}`);
     if ($(posTd).hasClass('greyed')) return 1;
     else return 0;
+  }
+
+  regarderAutour(pos, celluleARegarder = 1) {
+    // pos est sous la forme 3-1
+    const x = pos.chartAt(0);
+    const y = pos.charAt(pos.charAt.length - 1);
   }
 }
 
