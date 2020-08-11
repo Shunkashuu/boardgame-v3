@@ -1,7 +1,7 @@
-export default class Joueur {
-    constructor(id, degats, x, y, src){
+export default class Player {
+    constructor(id, damages, x, y, src){
         this.id = id;
-        this.degats = degats;
+        this.damages = damages;
         this.x = x ;
         this.y = y;
         this.src = src;
@@ -9,9 +9,7 @@ export default class Joueur {
     }
 }
 
-//export default Joueur
-const Toto = () => {  // fonction flechee
-    console.log("depuis ma super fonction");
-}
-
-export {Toto}  //export nomme
+const listPlayers = [
+    new Player(0, 10, random(0, this.nbOfLines), random(0, this.nbOfColumns), 'img/player1.png'),
+    new Player(1, 10, random(0, this.nbOfLines), random(0, this.nbOfColumns), 'img/player2.png')
+]

@@ -123,30 +123,21 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Toto = exports.default = void 0;
+exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Joueur = function Joueur(id, degats, x, y, src) {
-  _classCallCheck(this, Joueur);
+var Player = function Player(id, degats, x, y, src) {
+  _classCallCheck(this, Player);
 
   this.id = id;
   this.degats = degats;
   this.x = x;
   this.y = y;
   this.src = src;
-}; //export default Joueur
+};
 
-
-exports.default = Joueur;
-
-var Toto = function Toto() {
-  // fonction flechee
-  console.log("depuis ma super fonction");
-}; //export nomme
-
-
-exports.Toto = Toto;
+exports.default = Player;
 },{}],"js/map.js":[function(require,module,exports) {
 "use strict";
 
@@ -165,7 +156,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-// exercice vidéo
+// class Map : génération des obstacles, import des joueurs et des armes
 var Map = /*#__PURE__*/function () {
   function Map(nbLignes, nbColonnes) {
     _classCallCheck(this, Map);
@@ -205,12 +196,6 @@ var Map = /*#__PURE__*/function () {
         }
       }
     }
-    /**
-     * @Description Génère les murs
-     * @author snouzy
-     * @date 2020-08-08
-     */
-
   }, {
     key: "genererMurs",
     value: function genererMurs() {
@@ -227,22 +212,41 @@ var Map = /*#__PURE__*/function () {
         var randomTdElt = $tdElts[index]; // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
 
         while (this.getCellInfos(randomTdElt.id) !== 0) {
+          //3-1
           index = random(0, $tdElts.length);
           randomTdElt = $tdElts[index];
-        } // on colorie les murs en gris
-        // tu peux renommer la classe en "mur" si ça t'aide
+        } // on donne la class walls et la couleur grise
 
 
-        $(randomTdElt).addClass('greyed');
+        $(randomTdElt).addClass('walls');
       }
     }
-    /**
-     * @Description Renvoi ce qu'il y a sur la cellule visée
-     * @author snouzy
-     * @date 2020-08-08
-     * @param {any} pos  une position sous la forme {3-1}
-     * @returns {int}    un nombre correspondant à la classe associée ou 0 si rien ne correspond
-     */
+  }, {
+    key: "genererPlayer",
+    value: function genererPlayer() {
+      var player1 = new _player.default(0, 10, 0, 0, 'img/player1.png');
+      document.createElement('player1');
+      var player2 = new _player.default(1, 10, 1, 1, 'img/player2.png');
+      document.createElement('player2');
+      var max = 2;
+      var randomNumber = random(max);
+
+      for (var i = 0; i < randomNumber; i++) {
+        var index = random(0, $player.length);
+        var player = $player1 + $player2; // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
+
+        while (this.getCellInfos(player.id) !== 0) {
+          //3-1
+          index = random(0, $player.length);
+          randomPlayer = $player[index];
+        } // on donne la class walls et la couleur grise
+
+
+        $(randomPlayer).addClass('player');
+      }
+    } // renvoi ce qu'il y a sur la cellule visée
+    // parametre pos une position sous la forme {3-1}
+    // returne un nombre correspondant à la classe associée ou 0 si rien ne correspond
 
   }, {
     key: "getCellInfos",
@@ -250,22 +254,30 @@ var Map = /*#__PURE__*/function () {
       // la pos ressemble à 3-1 par exemple
       // on la sélectionne avec jquery
       var posTd = $("#".concat(pos));
-      if ($(posTd).hasClass('greyed')) return 1;else return 0;
+      if ($(posTd).hasClass('walls')) return 1;else return 0;
+    }
+  }, {
+    key: "regarderAutour",
+    value: function regarderAutour(pos) {
+      var celluleARegarder = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+      // pos est sous la forme 3-1
+      var x = pos.chartAt(0);
+      var y = pos.charAt(pos.charAt.length - 1);
     }
   }]);
 
   return Map;
-}();
-
-exports.default = Map;
-var cell = $('td[data-x="5"] td[data-y="7"]');
-console.log(cell); // $("tr:eq(" + x + ") td:eq(" + y + ")").addClass('PlayerOne')
+}(); //const cell = $('td[data-x="5"] td[data-y="7"]');
+//console.log(cell);
+// $("tr:eq(" + x + ") td:eq(" + y + ")").addClass('PlayerOne')
 // eq selection table jquery
 // utile pour generer les obstacles
 // si cette classe n'a pas la classe player a la classe bloqued classe generique pour soit un player soit un obstacle
 // a faire :
-// generation aleatoire des cases
-// generation des objets
+// generation des objets player et armes
+
+
+exports.default = Map;
 },{"./player.js":"js/player.js"}],"js/initGame.js":[function(require,module,exports) {
 "use strict";
 
@@ -356,11 +368,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55762" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52863" + '/');
->>>>>>> 8486edb61d917a480e7d4333d4bdc3d2668d19f4
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61313" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

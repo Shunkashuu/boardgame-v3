@@ -1,6 +1,7 @@
-import Joueur from './player.js';
+import Player from './player.js';
+import Weapon from './weapon.js';
 
-// exercice vidéo
+// class Map : génération des obstacles, import des joueurs et des armes
 export default class Map {
   constructor(nbLignes, nbColonnes) {
     this.nbLignes = nbLignes;
@@ -34,12 +35,7 @@ export default class Map {
     }
   }
 
-  /**
-   * @Description Génère les murs
-   * @author snouzy
-   * @date 2020-08-08
-   */
-  genererMurs() {
+  createWalls() {
     const $tdElts = $('td');
 
     // le nb de mur va être dans cet interval
@@ -51,7 +47,7 @@ export default class Map {
 
     for (let i = 0; i < randomNumber; i++) {
       // sélectionne un td au hasard
-      let index = random(0, $tdElts.length);
+      let index = random(0, $tdElts.length);  //index = 0 à 99 taille de la grille
       let randomTdElt = $tdElts[index];
 
       // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
@@ -61,24 +57,23 @@ export default class Map {
         randomTdElt = $tdElts[index];
       }
 
-      // on colorie les murs en gris
-      // tu peux renommer la classe en "mur" si ça t'aide
-      $(randomTdElt).addClass('greyed');
+      // on donne la class walls et la couleur grise
+      $(randomTdElt).addClass('walls');
+
+      //$(randomTdElt).removeClass("free").addClass("greyed");
     }
   }
 
-  /**
-   * @Description Renvoi ce qu'il y a sur la cellule visée
-   * @author snouzy
-   * @date 2020-08-08
-   * @param {any} pos  une position sous la forme {3-1}
-   * @returns {int}    un nombre correspondant à la classe associée ou 0 si rien ne correspond
-   */
+
+  // renvoi ce qu'il y a sur la cellule visée
+  // parametre pos une position sous la forme {3-1}
+  // returne un nombre correspondant à la classe associée ou 0 si rien ne correspond
+  
   getCellInfos(pos) {
     // la pos ressemble à 3-1 par exemple
     // on la sélectionne avec jquery
     let posTd = $(`#${pos}`);
-    if ($(posTd).hasClass('greyed')) return 1;
+    if ($(posTd).hasClass('walls')) return 1;
     else return 0;
   }
 
@@ -89,14 +84,12 @@ export default class Map {
   }
 }
 
-const cell = $('td[data-x="5"] td[data-y="7"]');
-console.log(cell);
-
+//const cell = $('td[data-x="5"] td[data-y="7"]');
+//console.log(cell);
 // $("tr:eq(" + x + ") td:eq(" + y + ")").addClass('PlayerOne')
 // eq selection table jquery
 // utile pour generer les obstacles
 // si cette classe n'a pas la classe player a la classe bloqued classe generique pour soit un player soit un obstacle
 
 // a faire :
-// generation aleatoire des cases
-// generation des objets
+// generation des objets player et armes

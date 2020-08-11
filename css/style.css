@@ -161,6 +161,6 @@ table {
 }
 
 /* La couleur des murs */
-.greyed {
-  background-color: grey;
+.walls {
+    background-color: grey;
 }
