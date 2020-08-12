@@ -6,11 +6,12 @@ window.random = function (min, max) {
 };
 
 export default class Init {
-  creerGrille() {
+  createGrid() {
     // tous les objets
     const Grille = new Map(10, 10);
-    Grille.creerGrille();
+    Grille.createGrid();
     Grille.createWalls();
     Grille.createWeapons();
+    Grille.createPlayers();
   }
 }

@@ -127,17 +127,35 @@ exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Player = function Player(id, degats, x, y, src) {
+var Player = function Player(id, damages, url) {
   _classCallCheck(this, Player);
 
   this.id = id;
-  this.degats = degats;
-  this.x = x;
-  this.y = y;
-  this.src = src;
+  this.damages = damages;
+  this.url = "../img/".concat(url, ".png");
 };
 
 exports.default = Player;
+},{}],"js/weapon.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Weapon = function Weapon(id, name, damages, url) {
+  _classCallCheck(this, Weapon);
+
+  this.id = id;
+  this.name = name;
+  this.damages = damages;
+  this.url = "../img/".concat(url, ".png");
+};
+
+exports.default = Weapon;
 },{}],"js/map.js":[function(require,module,exports) {
 "use strict";
 
@@ -147,6 +165,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _player = _interopRequireDefault(require("./player.js"));
+
+var _weapon = _interopRequireDefault(require("./weapon.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -158,38 +178,41 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 // class Map : génération des obstacles, import des joueurs et des armes
 var Map = /*#__PURE__*/function () {
-  function Map(nbLignes, nbColonnes) {
+  function Map(nbLines, nbCols, nbWeapons, listWeapons, nbPlayers, listPlayers) {
     _classCallCheck(this, Map);
 
-    this.nbLignes = nbLignes;
-    this.nbColonnes = nbColonnes;
+    this.nbLines = nbLines;
+    this.nbCols = nbCols;
+    this.nbWeapons = nbWeapons;
+    this.listWeapons = [new _weapon.default(0, 'Default', 10, 'default'), new _weapon.default(1, 'Cage Eclair', 20, 'electrik'), new _weapon.default(2, 'Double Pied', 30, 'fighting'), new _weapon.default(3, 'Noeud herbe', 40, 'plant'), new _weapon.default(4, 'Surf', 50, 'water')];
+    this.nbPlayers = nbPlayers;
+    this.listPlayers = [new _player.default(0, 10, 'img/player1.png'), new _player.default(1, 10, 'img/player2.png')];
   }
 
   _createClass(Map, [{
-    key: "creerGrille",
-    value: function creerGrille() {
+    key: "createGrid",
+    value: function createGrid() {
       var i;
       var j;
       var x = 0;
       var y = 0;
 
-      for (i = 0; i < this.nbLignes; i++) {
+      for (i = 0; i < this.nbLines; i++) {
         var trElt = document.createElement('tr');
         trElt.id = 'line-' + i;
         document.querySelector('#plateau').appendChild(trElt);
 
-        for (j = 0; j < this.nbColonnes; j++) {
+        for (j = 0; j < this.nbCols; j++) {
           var tdElt = document.createElement('td');
           tdElt.id = x + '-' + y;
           tdElt.dataset.x = x;
-          tdElt.dataset.y = y;
-          tdElt.innerHTML = "".concat(i, " - ").concat(j); // data attribute
+          tdElt.dataset.y = y; //tdElt.innerHTML = `${i} - ${j}`; // data attribute
 
           document.getElementById("line-".concat(y)).appendChild(tdElt);
           x++; // aller à droite
           // passer à la ligne
 
-          if (document.getElementById("line-".concat(y)).children.length == this.nbColonnes) {
+          if (document.getElementById("line-".concat(y)).children.length == this.nbCols) {
             y++;
             x = 0;
           }
@@ -197,8 +220,8 @@ var Map = /*#__PURE__*/function () {
       }
     }
   }, {
-    key: "genererMurs",
-    value: function genererMurs() {
+    key: "createWalls",
+    value: function createWalls() {
       var $tdElts = $('td'); // le nb de mur va être dans cet interval
 
       var min = 10;
@@ -208,41 +231,66 @@ var Map = /*#__PURE__*/function () {
 
       for (var i = 0; i < randomNumber; i++) {
         // sélectionne un td au hasard
-        var index = random(0, $tdElts.length);
+        var index = random(0, $tdElts.length); //index = 0 à 99 taille de la grille
+
         var randomTdElt = $tdElts[index]; // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
 
         while (this.getCellInfos(randomTdElt.id) !== 0) {
           //3-1
           index = random(0, $tdElts.length);
           randomTdElt = $tdElts[index];
-        } // on donne la class walls et la couleur grise
+        } // on donne la class walls et les roches
 
 
         $(randomTdElt).addClass('walls');
       }
     }
   }, {
-    key: "genererPlayer",
-    value: function genererPlayer() {
-      var player1 = new _player.default(0, 10, 0, 0, 'img/player1.png');
-      document.createElement('player1');
-      var player2 = new _player.default(1, 10, 1, 1, 'img/player2.png');
-      document.createElement('player2');
-      var max = 2;
-      var randomNumber = random(max);
+    key: "createWeapons",
+    value: function createWeapons() {
+      var $tdElts = $('td');
+      var min = 4;
+      var max = 4;
+      var nb = 1;
+      var randomNumber = random(min, max);
 
       for (var i = 0; i < randomNumber; i++) {
-        var index = random(0, $player.length);
-        var player = $player1 + $player2; // fais les vérifications pour qu'un mur n'apparaisse pas sur un autre
+        var index = random(0, $tdElts.length);
+        var randomTdElt = $tdElts[index];
 
-        while (this.getCellInfos(player.id) !== 0) {
+        while (this.getCellInfos(randomTdElt.id) !== 0) {
           //3-1
-          index = random(0, $player.length);
-          randomPlayer = $player[index];
-        } // on donne la class walls et la couleur grise
+          index = random(0, $tdElts.length);
+          randomTdElt = $tdElts[index];
+        } // on donne la class walls et les roches
 
 
-        $(randomPlayer).addClass('player');
+        $(randomTdElt).addClass('weapon' + nb);
+        nb++;
+      }
+    }
+  }, {
+    key: "createPlayers",
+    value: function createPlayers() {
+      var $tdElts = $('td');
+      var min = 2;
+      var max = 2;
+      var nb = 1;
+      var randomNumber = random(min, max);
+
+      for (var i = 0; i < randomNumber; i++) {
+        var index = random(0, $tdElts.length);
+        var randomTdElt = $tdElts[index];
+
+        while (this.getCellInfos(randomTdElt.id) !== 0) {
+          //3-1
+          index = random(0, $tdElts.length);
+          randomTdElt = $tdElts[index];
+        } // on donne la class walls et les roches
+
+
+        $(randomTdElt).addClass('player' + nb);
+        nb++;
       }
     } // renvoi ce qu'il y a sur la cellule visée
     // parametre pos une position sous la forme {3-1}
@@ -254,7 +302,12 @@ var Map = /*#__PURE__*/function () {
       // la pos ressemble à 3-1 par exemple
       // on la sélectionne avec jquery
       var posTd = $("#".concat(pos));
-      if ($(posTd).hasClass('walls')) return 1;else return 0;
+      if ($(posTd).hasClass('walls')) return 1;
+      if ($(posTd).hasClass('weapon1')) return 1;
+      if ($(posTd).hasClass('weapon2')) return 1;
+      if ($(posTd).hasClass('weapon3')) return 1;
+      if ($(posTd).hasClass('weapon4')) return 1;
+      if ($(posTd).hasClass('player1')) return 1;else return 0;
     }
   }, {
     key: "regarderAutour",
@@ -267,18 +320,10 @@ var Map = /*#__PURE__*/function () {
   }]);
 
   return Map;
-}(); //const cell = $('td[data-x="5"] td[data-y="7"]');
-//console.log(cell);
-// $("tr:eq(" + x + ") td:eq(" + y + ")").addClass('PlayerOne')
-// eq selection table jquery
-// utile pour generer les obstacles
-// si cette classe n'a pas la classe player a la classe bloqued classe generique pour soit un player soit un obstacle
-// a faire :
-// generation des objets player et armes
-
+}();
 
 exports.default = Map;
-},{"./player.js":"js/player.js"}],"js/initGame.js":[function(require,module,exports) {
+},{"./player.js":"js/player.js","./weapon.js":"js/weapon.js"}],"js/initGame.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -296,16 +341,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/**
- * @Description Renvoi un nombre aléatoire entre {min} et {max}
- * window permet de dire que cette fonction est appellable de manière globale dans tout le projet
- * tu vas surement en avoir besoin pour génerer les armes et les joueurs aussi
- * @author snouzy
- * @date 2020-08-08
- * @param {int} min  le nombre minimum souhaité
- * @param {int} max  le nombre maximum souhaité
- * @returns {int}    un nombre entre min et max
- */
+// window : appel global
 window.random = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -316,12 +352,14 @@ var Init = /*#__PURE__*/function () {
   }
 
   _createClass(Init, [{
-    key: "creerGrille",
-    value: function creerGrille() {
+    key: "createGrid",
+    value: function createGrid() {
       // tous les objets
       var Grille = new _map.default(10, 10);
-      Grille.creerGrille();
-      Grille.genererMurs(); //generation des murs
+      Grille.createGrid();
+      Grille.createWalls();
+      Grille.createWeapons();
+      Grille.createPlayers();
     }
   }]);
 
@@ -338,7 +376,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 $(document).ready(function () {
   var InitGame = new _initGame.default(10, 10);
-  InitGame.creerGrille(); // initgame.createplayer
+  InitGame.createGrid(); // initgame.createplayer
 });
 },{"./initGame.js":"js/initGame.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -368,7 +406,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61313" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55118" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

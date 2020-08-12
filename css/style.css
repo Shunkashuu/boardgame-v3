@@ -162,5 +162,50 @@ table {
 
 /* La couleur des murs */
 .walls {
-    background-color: grey;
+    background-image: url('../img/roche.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon1 {
+    background-image: url('../img/electrik.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon2 {
+    background-image: url('../img/fighting.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon3 {
+    background-image: url('../img/plant.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon4 {
+    background-image: url('../img/water.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player1 {
+    background-image: url('../img/player1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player2 {
+    background-image: url('../img/player2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

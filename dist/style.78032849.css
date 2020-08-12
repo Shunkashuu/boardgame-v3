@@ -162,7 +162,52 @@ table {
 
 /* La couleur des murs */
 .walls {
-    background-color: grey;
+    background-image: url('/roche.5118f47c.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon1 {
+    background-image: url('/electrik.7ec6be30.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon2 {
+    background-image: url('/fighting.8d0576cf.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon3 {
+    background-image: url('/plant.542a3d1d.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon4 {
+    background-image: url('/water.cbba16c6.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player1 {
+    background-image: url('/player1.01df4ee3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player2 {
+    background-image: url('/player2.cd8f6584.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /*# sourceMappingURL=/style.78032849.css.map */
