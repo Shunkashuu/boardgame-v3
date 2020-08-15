@@ -8,16 +8,16 @@ export default class Map {
     this.nbCols = nbCols;
     this.nbWeapons = nbWeapons;
     this.listWeapons = [
-      new Weapon(0, 'Default', 10, 'default'),
-      new Weapon(1, 'Cage Eclair', 20,  'electrik'),
-      new Weapon(2, 'Double Pied', 30, 'fighting'),
-      new Weapon(3, 'Noeud herbe', 40,  'plant'),
-      new Weapon(4, 'Surf', 50, 'water'),
+      new Weapon(0, 'Default', 10),
+      new Weapon(1, 'Cage Eclair', 20),
+      new Weapon(2, 'Double Pied', 30),
+      new Weapon(3, 'Noeud herbe', 40),
+      new Weapon(4, 'Surf', 50),
   ];
     this.nbPlayers = nbPlayers;
     this.listPlayers = [
-      new Player(0, 10, 'img/player1.png'),
-      new Player(1, 10, 'img/player2.png')
+      new Player(0, 100),
+      new Player(1, 100)
   ]
 
   }
@@ -86,17 +86,14 @@ export default class Map {
     const randomNumber = random(min, max);
 
     for (let i = 0; i < randomNumber; i++) {
-      
       let index = random(0, $tdElts.length);
       let randomTdElt = $tdElts[index];
 
       while (this.getCellInfos(randomTdElt.id) !== 0) {
-        //3-1
         index = random(0, $tdElts.length);
         randomTdElt = $tdElts[index];
       }
 
-      // on donne la class walls et les roches
       $(randomTdElt).addClass('weapon' + nb);
       nb++;
     }
@@ -112,27 +109,21 @@ export default class Map {
     const randomNumber = random(min, max);
 
     for (let i = 0; i < randomNumber; i++) {
-      
       let index = random(0, $tdElts.length);
       let randomTdElt = $tdElts[index];
 
       while (this.getCellInfos(randomTdElt.id) !== 0) {
-        //3-1
         index = random(0, $tdElts.length);
         randomTdElt = $tdElts[index];
       }
 
-      // on donne la class walls et les roches
       $(randomTdElt).addClass('player' + nb);
       nb++;
     }
   }
-  
 
   // renvoi ce qu'il y a sur la cellule visée
-  // parametre pos une position sous la forme {3-1}
   // returne un nombre correspondant à la classe associée ou 0 si rien ne correspond
-  
   getCellInfos(pos) {
     // la pos ressemble à 3-1 par exemple
     // on la sélectionne avec jquery
@@ -152,3 +143,8 @@ export default class Map {
     const y = pos.charAt(pos.charAt.length - 1);
   }
 }
+
+// a faire :
+// pikachu et evoli ne doivent pas tomber cote a cote
+// il faut une case de libre minimum en bas, haut, gauche, droite
+// les cases libres doivent etre a 0

@@ -1,7 +1,6 @@
 export default class Player {
-    constructor(id, damages, url){
+    constructor(id, hp){
         this.id = id;
-        this.damages = damages;
-        this.url = `../img/${url}.png`;
+        this.hp = hp;
     }
 }

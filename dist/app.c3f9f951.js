@@ -127,12 +127,11 @@ exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Player = function Player(id, damages, url) {
+var Player = function Player(id, hp) {
   _classCallCheck(this, Player);
 
   this.id = id;
-  this.damages = damages;
-  this.url = "../img/".concat(url, ".png");
+  this.hp = hp;
 };
 
 exports.default = Player;
@@ -146,13 +145,12 @@ exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Weapon = function Weapon(id, name, damages, url) {
+var Weapon = function Weapon(id, name, damages) {
   _classCallCheck(this, Weapon);
 
   this.id = id;
   this.name = name;
   this.damages = damages;
-  this.url = "../img/".concat(url, ".png");
 };
 
 exports.default = Weapon;
@@ -184,9 +182,9 @@ var Map = /*#__PURE__*/function () {
     this.nbLines = nbLines;
     this.nbCols = nbCols;
     this.nbWeapons = nbWeapons;
-    this.listWeapons = [new _weapon.default(0, 'Default', 10, 'default'), new _weapon.default(1, 'Cage Eclair', 20, 'electrik'), new _weapon.default(2, 'Double Pied', 30, 'fighting'), new _weapon.default(3, 'Noeud herbe', 40, 'plant'), new _weapon.default(4, 'Surf', 50, 'water')];
+    this.listWeapons = [new _weapon.default(0, 'Default', 10), new _weapon.default(1, 'Cage Eclair', 20), new _weapon.default(2, 'Double Pied', 30), new _weapon.default(3, 'Noeud herbe', 40), new _weapon.default(4, 'Surf', 50)];
     this.nbPlayers = nbPlayers;
-    this.listPlayers = [new _player.default(0, 10, 'img/player1.png'), new _player.default(1, 10, 'img/player2.png')];
+    this.listPlayers = [new _player.default(0, 100), new _player.default(1, 100)];
   }
 
   _createClass(Map, [{
@@ -259,11 +257,9 @@ var Map = /*#__PURE__*/function () {
         var randomTdElt = $tdElts[index];
 
         while (this.getCellInfos(randomTdElt.id) !== 0) {
-          //3-1
           index = random(0, $tdElts.length);
           randomTdElt = $tdElts[index];
-        } // on donne la class walls et les roches
-
+        }
 
         $(randomTdElt).addClass('weapon' + nb);
         nb++;
@@ -283,17 +279,14 @@ var Map = /*#__PURE__*/function () {
         var randomTdElt = $tdElts[index];
 
         while (this.getCellInfos(randomTdElt.id) !== 0) {
-          //3-1
           index = random(0, $tdElts.length);
           randomTdElt = $tdElts[index];
-        } // on donne la class walls et les roches
-
+        }
 
         $(randomTdElt).addClass('player' + nb);
         nb++;
       }
     } // renvoi ce qu'il y a sur la cellule visée
-    // parametre pos une position sous la forme {3-1}
     // returne un nombre correspondant à la classe associée ou 0 si rien ne correspond
 
   }, {
@@ -320,7 +313,11 @@ var Map = /*#__PURE__*/function () {
   }]);
 
   return Map;
-}();
+}(); // a faire :
+// pikachu et evoli ne doivent pas tomber cote a cote
+// il faut une case de libre minimum en bas, haut, gauche, droite
+// les cases libres doivent etre a 0
+
 
 exports.default = Map;
 },{"./player.js":"js/player.js","./weapon.js":"js/weapon.js"}],"js/initGame.js":[function(require,module,exports) {
@@ -406,7 +403,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55118" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55551" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
