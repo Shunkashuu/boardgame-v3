@@ -261,8 +261,7 @@ var Map = /*#__PURE__*/function () {
           randomTdElt = $tdElts[index];
         }
 
-        $(randomTdElt).addClass('weapon' + nb);
-        nb++;
+        $(randomTdElt).addClass('weapon');
       }
     }
   }, {
@@ -283,8 +282,7 @@ var Map = /*#__PURE__*/function () {
           randomTdElt = $tdElts[index];
         }
 
-        $(randomTdElt).addClass('player' + nb);
-        nb++;
+        $(randomTdElt).addClass('player');
       }
     } // renvoi ce qu'il y a sur la cellule visée
     // returne un nombre correspondant à la classe associée ou 0 si rien ne correspond
@@ -292,8 +290,6 @@ var Map = /*#__PURE__*/function () {
   }, {
     key: "getCellInfos",
     value: function getCellInfos(pos) {
-      // la pos ressemble à 3-1 par exemple
-      // on la sélectionne avec jquery
       var posTd = $("#".concat(pos));
       if ($(posTd).hasClass('walls')) return 1;
       if ($(posTd).hasClass('weapon1')) return 1;
@@ -301,14 +297,32 @@ var Map = /*#__PURE__*/function () {
       if ($(posTd).hasClass('weapon3')) return 1;
       if ($(posTd).hasClass('weapon4')) return 1;
       if ($(posTd).hasClass('player1')) return 1;else return 0;
-    }
+    } // ce qu'il faudrait avoir pour ensuite utiliser la boucle while
+
+    /*getCellContent(pos) {
+      let posTd = $(`#${pos}`);
+      
+      if($(posTd).hasClass("walls")) {
+          return 1
+      }
+      else if($(posTd).hasClass("weapon")) {
+          return 2
+      }
+      else if($(posTd).hasClass("player")){
+          return 3
+      }    
+      else {
+          return 0
+      }
+    }*/
+
   }, {
-    key: "regarderAutour",
-    value: function regarderAutour(pos) {
+    key: "lookAround",
+    value: function lookAround(pos) {
       var celluleARegarder = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
       // pos est sous la forme 3-1
-      var x = pos.chartAt(0);
-      var y = pos.charAt(pos.charAt.length - 1);
+      var x = parseInt(pos.charAt(0));
+      var y = parseInt(pos.charAt(pos.length - 1));
     }
   }]);
 
@@ -317,6 +331,10 @@ var Map = /*#__PURE__*/function () {
 // pikachu et evoli ne doivent pas tomber cote a cote
 // il faut une case de libre minimum en bas, haut, gauche, droite
 // les cases libres doivent etre a 0
+// pistes données :
+// creer une class generique weapon, player pour les appeler dans getcellinfos 
+// return 1 si mur, return 2 si player, return 3 si weapon par exemple
+// utiliser getCellInfos et regarderAutour dans la boucle while
 
 
 exports.default = Map;
@@ -357,6 +375,8 @@ var Init = /*#__PURE__*/function () {
       Grille.createWalls();
       Grille.createWeapons();
       Grille.createPlayers();
+      Grille.getCellInfos();
+      Grille.lookAround();
     }
   }]);
 
@@ -403,7 +423,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55551" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56760" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

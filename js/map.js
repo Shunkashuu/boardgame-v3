@@ -94,8 +94,7 @@ export default class Map {
         randomTdElt = $tdElts[index];
       }
 
-      $(randomTdElt).addClass('weapon' + nb);
-      nb++;
+      $(randomTdElt).addClass('weapon');
     }
   }
 
@@ -117,16 +116,13 @@ export default class Map {
         randomTdElt = $tdElts[index];
       }
 
-      $(randomTdElt).addClass('player' + nb);
-      nb++;
+      $(randomTdElt).addClass('player');
     }
   }
 
   // renvoi ce qu'il y a sur la cellule visée
   // returne un nombre correspondant à la classe associée ou 0 si rien ne correspond
   getCellInfos(pos) {
-    // la pos ressemble à 3-1 par exemple
-    // on la sélectionne avec jquery
     let posTd = $(`#${pos}`);
     if ($(posTd).hasClass('walls')) return 1;
     if ($(posTd).hasClass('weapon1')) return 1;
@@ -137,10 +133,28 @@ export default class Map {
     else return 0;
   }
 
-  regarderAutour(pos, celluleARegarder = 1) {
+  // ce qu'il faudrait avoir pour ensuite utiliser la boucle while
+  /*getCellContent(pos) {
+    let posTd = $(`#${pos}`);
+    
+    if($(posTd).hasClass("walls")) {
+        return 1
+    }
+    else if($(posTd).hasClass("weapon")) {
+        return 2
+    }
+    else if($(posTd).hasClass("player")){
+        return 3
+    }    
+    else {
+        return 0
+    }
+}*/
+
+  lookAround(pos, celluleARegarder = 1) {
     // pos est sous la forme 3-1
-    const x = pos.chartAt(0);
-    const y = pos.charAt(pos.charAt.length - 1);
+    const x = parseInt(pos.charAt(0));
+    const y = parseInt(pos.charAt(pos.length - 1));
   }
 }
 
@@ -148,3 +162,7 @@ export default class Map {
 // pikachu et evoli ne doivent pas tomber cote a cote
 // il faut une case de libre minimum en bas, haut, gauche, droite
 // les cases libres doivent etre a 0
+// pistes données :
+// creer une class generique weapon, player pour les appeler dans getcellinfos 
+// return 1 si mur, return 2 si player, return 3 si weapon par exemple
+// utiliser getCellInfos et regarderAutour dans la boucle while

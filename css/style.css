@@ -209,3 +209,17 @@ table {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.player {
+    background-image: url('../img/player2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon {
+    background-image: url('../img/water.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}

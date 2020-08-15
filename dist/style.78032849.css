@@ -210,4 +210,18 @@ table {
     background-position: center;
 }
 
+.player {
+    background-image: url('/player2.cd8f6584.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.weapon {
+    background-image: url('/water.cbba16c6.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 /*# sourceMappingURL=/style.78032849.css.map */

@@ -13,5 +13,7 @@ export default class Init {
     Grille.createWalls();
     Grille.createWeapons();
     Grille.createPlayers();
+    Grille.getCellInfos();
+    Grille.lookAround();
   }
 }
