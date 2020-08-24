@@ -18,4 +18,4 @@ Don't use for commercial use, only for testing the game
 
 ## Status
 
-Work in progress. The grid is on and the greyed cases are randomly generates.
+Work in progress. The grid is on and the players, obstacles and weapons are on the grid. I added a new repository with another version based on a table and div system.
